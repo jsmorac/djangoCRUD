@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center text-success fw-bold py-5 ">Tasks pending</h1>
+            <ul class="list-group">
+                {% for task in tasks %} {# esto es como decir en cada elemento en ese arreglo el empieza a recorrerlo #}
+                <a class="list-group-item" href="{% url 'task_detail' task.id%}">
+                    <header class="d-flex justify-content-between">
+                        {% if task.important %} {# Basicamente cuando la tarea es importante muestra en negrita el titulo y si no lo es no #}
+                        <h1 class="fw-bold text-danger">{{task.title}}</h1>
+                        {% else %}
+                        <h1 class="">{{task.title}}</h1>
+                        {% endif %}
+                        <p>{{task.user.username}}</p>{# el user es porque se encuentra en la parte de models #}
+                    </header>
+                    <p>{{task.description}}</p>
+                    
+                    <p>{{task.datencompleted|date:'M j Y:i'}}</p> {# me muestra la fecha por mes dia y año de las tareas completadas #}
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
